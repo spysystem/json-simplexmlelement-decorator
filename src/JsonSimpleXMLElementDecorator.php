@@ -1,6 +1,14 @@
 <?php
 namespace SpyHelper;
 
+use JsonSerializable;
+use SimpleXMLElement;
+
+/**
+ * Class JsonSimpleXMLElementDecorator
+ *
+ * @package SpyHelper
+ */
 class JsonSimpleXMLElementDecorator implements JsonSerializable
 {
 	const Depth	= 1024;
@@ -11,7 +19,14 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 	private $bConvertAttributesToProperties = false;
 	/** @var int **/
 	private $iDepth;
-	
+
+	/**
+	 * JsonSimpleXMLElementDecorator constructor.
+	 *
+	 * @param SimpleXMLElement $oElement
+	 * @param bool             $bConvertAttributesToProperties
+	 * @param int              $iDepth
+	 */
 	public function __construct(SimpleXMLElement $oElement, bool $bConvertAttributesToProperties, int $iDepth = self::Depth)
 	{
 		$this->oXml								= $oElement;
@@ -42,7 +57,7 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 		}
 		
 		$oChildren	= $oCurrent;
-		$iDepth		= $this-iDepth - 1;
+		$iDepth		= $this->iDepth - 1;
 		if($iDepth <= 0)
 		{
 			$oChildren	= [];
@@ -50,7 +65,7 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 		
 		foreach($oChildren as $strName => $oElement)
 		{
-			$oDecorator	= new self($oElement, $this->bConvertAttributesToProperties, $iDepth)
+			$oDecorator	= new self($oElement, $this->bConvertAttributesToProperties, $iDepth);
 			
 			if(isset($mReturn[$strName]))
 			{
