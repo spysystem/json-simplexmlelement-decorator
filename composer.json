@@ -1,0 +1,8 @@
+{
+    "name": "spysystem/json-simplexmlelement-decorator",
+    "description": "Decorator class to help converting SimpleXMLElement objects to JSON",
+    "license": "GPL 2.9",
+    "autoload": {
+        "psr-4": {"SpyHelper\\": "src/"}
+    }
+}
