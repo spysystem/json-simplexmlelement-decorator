@@ -40,12 +40,14 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 	public function jsonSerialize()
 	{
 		$oCurrent	= $this->oXml;
-		
+
 		$mReturn	= [];
-		
-		if($arrAttributes = $oCurrent->attributes())
+
+		$arrAttributes = $oCurrent->attributes();
+
+		if($arrAttributes !== null)
 		{
-			$arrAttributes = array_map('strval', iterator_to_array($arrAttributes));
+			$arrAttributes	= array_map('strval', iterator_to_array($arrAttributes));
 			if($this->bConvertAttributesToProperties)
 			{
 				$mReturn	= $arrAttributes;
@@ -55,18 +57,18 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 				$mReturn['@attributes']	= $arrAttributes;
 			}
 		}
-		
+
 		$oChildren	= $oCurrent;
 		$iDepth		= $this->iDepth - 1;
 		if($iDepth <= 0)
 		{
 			$oChildren	= [];
 		}
-		
+
 		foreach($oChildren as $strName => $oElement)
 		{
 			$oDecorator	= new self($oElement, $this->bConvertAttributesToProperties, $iDepth);
-			
+
 			if(isset($mReturn[$strName]))
 			{
 				if(!is_array($mReturn[$strName]))
@@ -81,10 +83,9 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 			}
 		}
 
-			
 		$strText	= trim($oCurrent);
-		
-		if(strlen($strText) > 0 )
+
+		if(strlen($strText) > 0)
 		{
 			if(count($mReturn) > 0)
 			{
@@ -95,12 +96,12 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 				$mReturn	= $strText;
 			}
 		}
-		
+
 		if($mReturn === '' || count($mReturn) === 0)
 		{
 			$mReturn	= null;
 		}
-		
+
 		return $mReturn;
 	}
 }
