@@ -1,14 +1,14 @@
 {
-    "name": "spysystem/json-simplexmlelement-decorator",
-    "description": "",
-    "minimum-stability": "stable",
-    "license": "proprietary",
-    "autoload": {
-        "psr-4": {
-          "SpyHelper\\" : "src"
-        }
-    },
-    "require": {
-      "php": ">=7.0"
-    }
+	"name": "spysystem/json-simplexmlelement-decorator",
+	"description": "",
+	"minimum-stability": "stable",
+	"license": "proprietary",
+	"autoload": {
+		"psr-4": {
+			"SpyHelper\\": "src"
+		}
+	},
+	"require": {
+		"php": "7.0 - 8.1"
+	}
 }
