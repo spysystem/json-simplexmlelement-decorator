@@ -2,6 +2,7 @@
 namespace SpyHelper;
 
 use JsonSerializable;
+use ReturnTypeWillChange;
 use SimpleXMLElement;
 
 /**
@@ -14,7 +15,7 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 	const Depth	= 1024;
 
 	/** @var SimpleXMLElement **/
-	private $oXml;	
+	private $oXml;
 	/** @var bool **/
 	private $bConvertAttributesToProperties = false;
 	/** @var int **/
@@ -33,10 +34,11 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 		$this->bConvertAttributesToProperties	= $bConvertAttributesToProperties;
 		$this->iDepth							= $iDepth;
 	}
-	
+
 	/**
 	 * @return mixed
 	 */
+	#[ReturnTypeWillChange]
 	public function jsonSerialize()
 	{
 		$oCurrent	= $this->oXml;
@@ -97,7 +99,7 @@ class JsonSimpleXMLElementDecorator implements JsonSerializable
 			}
 		}
 
-		if($mReturn === '' || count($mReturn) === 0)
+		if($mReturn === '' || $mReturn === [])
 		{
 			$mReturn	= null;
 		}
